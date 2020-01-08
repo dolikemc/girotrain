@@ -21,3 +21,10 @@ Assignment Plan
 Sending Emails (Django & Emails)
 Data protection expiry
 Install on Aditssystems
+
+dumpdata --natural-foreign --indent 2 -e contenttypes -e auth.permission -e wagtailcore.groupcollectionpermission -e wagtailcore.grouppagepermission -e wagtailimages.rendition -e sessions --output dump.json
+makemigrations
+migrate
+collectstatic --noinput
+createsuperuser
+loaddata dump.json
