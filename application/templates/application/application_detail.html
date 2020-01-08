@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load  i18n static %}
+{% block content %}
+    <div class="container">
+        <h1>{% trans 'Contact form' %}</h1>
+        <div class="card-deck">
+            <div class="card bg-info">
+                <img class="card-img-top" src="{% static 'icons8-female-user-64.png' %}" alt="Image">
+                <div class="card-body">
+                    <h4 class="card-title">{{ object.first_name_mother }} {{ object.last_name_mother }}</h4>
+                    <div class="card-text">
+                        <div class="icon icon-mail"> {{ object.email_mother }} </div>
+                        <p> {{ object.phone_mother }}</p>
+                        <p>{{ object.profession_mother }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-primary">
+                <img class="card-img-top" src="{% static 'icons8-person-64.png' %}" alt="Image">
+                <div class="card-body">
+                    <h4 class="card-title">{{ object.first_name }} {{ object.last_name }} </h4>
+                    <div class="card-text">
+                        <p class="icon icon-mail">{{ object.contact_email }}</p>
+                        <p>* {{ object.birth_date | date }}</p>
+                        <p> {% trans 'starts' %} {{ object.start_date | date }}</p>
+                        <p> {{ object.street }} {{ object.zip }} {{ object.city }}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="card bg-info">
+                <img class="card-img-top" src="{% static 'icons8-user-64.png' %}" alt="Image">
+                <div class="card-body">
+                    <h4 class="card-title">{{ object.first_name_father }} {{ object.last_name_father }} </h4>
+                    <div class="card-text">
+                        <p> {{ object.email_father }} </p>
+                        <p> {{ object.phone_father }}</p>
+                        <p>{{ object.profession_father }}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <p>{{ object.remark }}</p>
+        <p>{{ object.urgency }}</p>
+    </div>
+{% endblock %}

@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags joyous_tags %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="/static/joyous/css/joyous.css">
+    <link rel="stylesheet" type="text/css" href="/static/joyous/css/joyous_forest_theme.css">
+{% endblock %}
+{% block content %}
+    <div class="container mx-auto">
+
+        <div class="card mx-auto">
+            <h3 class="card-header">
+                Girotondo Kalender
+            </h3>
+            <div class="card-body mx-auto">
+                {% minicalendar %}
+            </div>
+        </div>
+        <br/>
+
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>First Name</th>
+                <th>From</th>
+                <th>To</th>
+                <th>Remark</th>
+                <th>Remove</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for article in holidays %}
+                <tr>
+                    <td>{{ article.child }}</td>
+                    <td>{{ article.from_date | date_display }}</td>
+                    <td>{{ article.to_date | date_display }}</td>
+                    <td>{{ article.remark }}</td>
+                    <td>
+                        <a href="{% url 'delete-holiday' article.from_date.year article.from_date.month article.from_date.day article.to_date.year article.to_date.month article.to_date.day %}"
+                           role="button" class="btn btn-danger">Delete</a></td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" src="/static/joyous/js/calendar.js"></script>
+{% endblock %}

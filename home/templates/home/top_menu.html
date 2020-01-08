@@ -1,0 +1,11 @@
+{% load navigation_tags %}
+<ul class="navbar-nav">
+    {% for menu in menuitems %}
+        <li>
+            <a class="nav-link" href="{{ menu.url }}">
+                {% comment %}we use seo titel if set, because title could be longer text used also as section header
+                {% endcomment %}
+                {% if menu.seo_title %}{{ menu.seo_title }} {% else %}{{ menu.title }}{% endif %} </a>
+        </li>
+    {% endfor %}
+</ul>

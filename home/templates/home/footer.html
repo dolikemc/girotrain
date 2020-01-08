@@ -1,0 +1,13 @@
+{% load navigation_tags wagtailimages_tags %}
+<div class="col-lg-8 col-md-10 mx-auto">
+    <div class="list-inline text-center">
+        {% for link in footer_links %}
+            <a class="fa-external-link" href="{{ link.url }}">{{ link.text }}</a>
+        {% endfor %}
+        |
+        {% for image in footer_images %}
+            <a class="fa-external-link" href="{{ image.url }}">{% image image.image max-64x48 %}</a>
+        {% endfor %}
+    </div>
+    <p class="copyright text-muted">Copyright &copy; it_AT_girotondo.de 2019</p>
+</div>

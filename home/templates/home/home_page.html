@@ -1,0 +1,50 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags cookielaw_tags %}
+{% block body_class %}template-homepage{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block content %}
+    <div class="container">
+
+        <div class="col-lg-8 col-md-8 col-sm-8 mx-auto">
+            <div class="home-page">
+                <div class="row">
+                    <h2 class="home-title">
+                        {{ page.translated_title }}
+                    </h2>
+                    <p class="home-body">
+                        {{ page.body_top | richtext }}
+                        {% if page.link_top %}
+                            <a class='page-link' href={{ page.link_top }}>{{ page.link_text_top }}</a>
+                        {% endif %}
+                    </p>
+                </div>
+                {% if  page.home_page_images.all %}
+                    <hr>
+                    <div class="row">
+                        {% for item in page.home_page_images.all %}
+                            <div class="col-lg-4 col-md-3 col-sm-2 mx-auto">
+                                {% image item.image max-240x160 %}
+                            </div>
+                        {% endfor %}
+                    </div>
+                    <hr>
+                {% endif %}
+                <div class="row">
+                    <p class="home-body">
+                        {{ page.body_bottom | richtext }}
+                        {% if page.link_bottom %}
+                            <a class='page-link' href={{ page.link_bottom }}>{{ page.link_text_bottom }}</a>
+                        {% endif %}
+                    </p>
+                </div>
+            </div> <!-- home-page -->
+        </div> <!-- col -->
+
+    </div> <!-- container -->
+    <div class="cookie">
+        {% cookielaw_banner %}
+    </div>
+{% endblock content %}
+{% block extra_js %}
+{% endblock extra_js %}

@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags cookielaw_tags %}
+{% block body_class %}template-accordionpage{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block content %}
+    <div class="container">
+
+        <div class="col-lg-8 col-md-8 col-sm-8 mx-auto">
+            <div class="home-page">
+                <div class="row">
+                    <h2 class="home-title">
+                        {{ page.translated_title }}
+                    </h2>
+                    <p class="home-body">
+                        {{ page.body_top | richtext }}
+                    </p>
+                </div>
+                <div class="accordion" id="myAccordion">
+                    {% for col in page.entry.all %}
+
+                        <div class="card">
+                            <div class="card-header" id="heading-{{ col.id }}">
+                                <h2 class="mb-0">
+                                    <button type="button" class="btn btn-link" data-toggle="collapse"
+                                            data-target="#collapse-{{ col.id }}">{{ col.header }}
+                                    </button>
+                                </h2>
+                            </div>
+                            <div id="collapse-{{ col.id }}" class="collapse" aria-labelledby="heading-{{ col.id }}"
+                                 data-parent="#myAccordion">
+                                <div class="card-body">
+                                    {{ col.body | richtext }}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div> <!-- home-page -->
+        </div> <!-- col -->
+
+    </div> <!-- container -->
+    <div class="cookie">
+        {% cookielaw_banner %}
+    </div>
+{% endblock content %}
+{% block extra_js %}
+{% endblock extra_js %}

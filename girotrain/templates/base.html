@@ -1,0 +1,91 @@
+{% load static wagtailuserbar navigation_tags flags %}
+
+<!DOCTYPE html>
+<html class="no-js" lang="en">
+<head>
+    <meta charset="utf-8"/>
+    <title>
+        {% block title %}
+            {% if self.seo_title %}{{ self.seo_title }}{% else %}{{ self.title }}{% endif %}
+        {% endblock %}
+        {% block title_suffix %}
+            {% with self.get_site.site_name as site_name %}
+                {% if site_name %}- {{ site_name }}{% endif %}
+            {% endwith %}
+        {% endblock %}
+    </title>
+    <meta name="description" content=""/>
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
+
+    {# Global stylesheets #}
+    <link rel="stylesheet" type="text/css" href="{% static 'wagtailadmin/css/core.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'vendor/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/girotrain.css' %}"/>
+
+    {% block extra_css %}
+        {# Override this in templates to add extra stylesheets #}
+    {% endblock %}
+</head>
+
+<body class="{% block body_class %}{% endblock %}">
+{% wagtailuserbar %}
+
+<!-- Page Header -->
+<header class="masthead" style="background-image: url({% static 'header_bg.jpg' %})">
+    <div class="overlay"></div>
+    <div class="container">
+
+        <div class="row">
+            <div class="col-lg-8 col-md-10 mx-auto">
+                <div class="site-heading">
+                    <h1>Girotondo</h1>
+                    <span class="subheading">Italienisch - deutsche Eltern-Kind-Initiative</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <ul>{% languages %}</ul>
+</header>
+
+
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
+    <div class="container">
+        <a class="navbar-brand" href="/">Home</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse"
+                data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false"
+                aria-label="Toggle navigation">
+            Menu
+            <i class="fas fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+            {% top_menu self %}
+        </div>
+    </div>
+</nav>
+
+{% block content %}{% endblock %}
+
+<!-- Footer -->
+<div class="footer-home-page">
+    <div class="container">
+        <div class="row">
+            {% footer %}
+        </div>
+    </div>
+</div>
+
+
+{# Global javascript #}
+<script type="text/javascript" src="{% static 'js/girotrain.js' %}"></script>
+<!-- Bootstrap core JavaScript -->
+<script src="{% static 'vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'vendor/bootstrap/js/bootstrap.min.js' %}"></script>
+<!-- For Cookies handling -->
+<script src="{% static 'cookielaw/js/cookielaw.js' %}"></script>
+
+{% block extra_js %}
+    {# Override this in templates to add extra javascript #}
+{% endblock %}
+</body>
+</html>

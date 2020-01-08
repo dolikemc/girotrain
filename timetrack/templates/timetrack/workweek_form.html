@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static i18n %}
+{% block content %}
+    <div class="content">
+        <h1>{% trans 'Work Week' %}</h1>
+        <hr>
+        <form method="post">
+            {% csrf_token %}
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-sm">
+                        {% trans 'Monday' %}
+                    </div>
+                    <div class="col-sm">
+                        {% trans 'Tuesday' %}
+                    </div>
+                    <div class="col-sm">
+                        {% trans 'Wednesday' %}
+                    </div>
+                    <div class="col-sm">
+                        {% trans 'Thursday' %}
+                    </div>
+                    <div class="col-sm">
+                        {% trans 'Friday' %}
+                    </div>
+                </div>
+                <hr>
+                <div class="row">
+                    <div class="col-sm">
+                        {{ form.monday }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.tuesday }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.wednesday }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.thursday }}
+                    </div>
+                    <div class="col-sm">
+                        {{ form.friday }}
+                    </div>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm">
+                    <input type="submit" value="Eintragen" class="btn btn-primary">
+                </div>
+                <div class="col-sm">
+                    <input type="reset" value="Zurücksetzen" class="btn btn-secondary">
+                </div>
+            </div>
+        </form>
+    </div>
+{% endblock %}

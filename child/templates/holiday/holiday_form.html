@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags %}
+{% block content %}
+    <div class="content">
+        <h1>{% trans 'Absence' %}</h1>
+        <form method="post">
+            {% csrf_token %}
+            {{ form | crispy }}
+            <input type="submit" value="Submit" class="btn btn-primary">
+        </form>
+    </div>
+{% endblock %}

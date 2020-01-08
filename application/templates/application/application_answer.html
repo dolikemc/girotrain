@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+{% load  i18n static %}
+{% block content %}
+    <div class="container">
+        <p>{% trans "Hallo lieber " %}{{ form.first_name }} {{ form.last_name }}</p>
+        <p>Mit folgenden Daten haben wir Deine Anmeldung für den Kindergarten Girotondo gespeichert:</p>
+        <table class="table table-bordered">
+            <tr>
+                <td>{{ form.street }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.country }}-{{ form.zip }} {{ form.city }}</td>
+            </tr>
+            <tr>
+                <th>{% trans "birth date" %}</th>
+                <th>{% trans "start date" %}</th>
+                <th>{% trans "care time" %}</th>
+            </tr>
+            <tr>
+                <td>{{ form.birth_date }}</td>
+                <td>{{ form.start_date }}</td>
+                <td>{{ form.care_time }}</td>
+            </tr>
+            <tr>
+                <th>{% trans "Name" %}</th>
+                <th>{% trans "Nationality" %}</th>
+                <th>{% trans "Email" %}</th>
+            </tr>
+            <tr>
+                <td>{{ form.name_mother }}</td>
+                <td>{{ form.nationality_mother }}</td>
+                <td>{{ form.email_mother }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.name_father }}</td>
+                <td>{{ form.nationality_father }}</td>
+                <td>{{ form.email_father }}</td>
+            </tr>
+            <tr>
+                <th>{% trans "Phone" %}</th>
+                <th>{% trans "Profession" %}</th>
+
+            </tr>
+            <tr>
+                <td>{{ form.phone_mother }}</td>
+                <td>{{ form.profession_mother }}</td>
+            </tr>
+            <tr>
+                <td>{{ form.phone_father }}</td>
+                <td>{{ form.profession_father }}</td>
+            </tr>
+        </table>
+    </div>
+{% endblock %}

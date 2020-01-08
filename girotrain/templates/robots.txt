@@ -1,0 +1,5 @@
+UserAgent: *
+
+Disallow: /admin/
+
+Disallow: /django-admin/

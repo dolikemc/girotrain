@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static i18n crispy_forms_tags joyous_tags %}
+{% block extra_css %}
+    <link rel="stylesheet" type="text/css" href="/static/joyous/css/joyous.css">
+    <link rel="stylesheet" type="text/css" href="/static/joyous/css/joyous_forest_theme.css">
+{% endblock %}
+{% block content %}
+    <div class="container mx-auto">
+
+        <div class="card mx-auto">
+            <h3 class="card-header">
+                Girotondo Kalender
+            </h3>
+            <div class="card-body mx-auto">
+                {% minicalendar %}
+            </div>
+        </div>
+        <br/>
+        <h3>{{ month }}/{{ year }}</h3>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th>Date</th>
+                <th>Piccoli</th>
+                <th>Medi</th>
+                <th>Grandi</th>
+                <th>Missing</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for entry in object_list %}
+                <tr {% if entry.open  %}class="table-success"{% endif %}>
+                    <td>{{ entry.date | date_display }}</td>
+                    <td>{{ entry.Pi }}</td>
+                    <td>{{ entry.Mi }}</td>
+                    <td>{{ entry.Gi }}</td>
+                    <td>{{ entry.Po }}, {{ entry.Mo }}, {{ entry.Go }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}
+{% block extra_js %}
+    <script type="text/javascript" src="/static/joyous/js/calendar.js"></script>
+{% endblock %}
