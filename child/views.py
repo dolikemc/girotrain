@@ -1,11 +1,12 @@
-from datetime import date, timedelta
 import calendar
+from datetime import date, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.forms import Form, DateField, CharField, Textarea, ModelChoiceField
+from django.http import HttpResponseRedirect
 from django.urls import reverse_lazy
 from django.views.generic import CreateView, ListView, FormView, TemplateView
-from django.http import HttpResponseRedirect
+
 from child.models import Absence, Child, GirotondoMonth
 from timetrack.models import Contract
 
@@ -99,13 +100,16 @@ class AssignmentPlan(LoginRequiredMixin, TemplateView):
             if day.month != giro_month.month:
                 continue
             context['object_list'].append({'date': day, 'open': giro_month.is_girotondo_day(day.day),
-                                          'Pi': str(giro_month.get_children_in(day.day, 'P')),
-                                          'Po': str(giro_month.get_children_out(day.day, 'P')),
-                                          'Mi': str(giro_month.get_children_in(day.day, 'M')),
-                                          'Mo': str(giro_month.get_children_out(day.day, 'M')),
-                                          'Gi': str(giro_month.get_children_in(day.day, 'G')),
-                                          'Go': str(giro_month.get_children_out(day.day, 'G')),
-                                          })
+                                           'PiA': len(giro_month.get_children_in(day.day, 'P')),
+                                           'Pi': str(giro_month.get_children_in(day.day, 'P')),
+                                           'Po': str(giro_month.get_children_out(day.day, 'P')),
+                                           'Mi': str(giro_month.get_children_in(day.day, 'M')),
+                                           'MiA': len(giro_month.get_children_in(day.day, 'M')),
+                                           'Mo': str(giro_month.get_children_out(day.day, 'M')),
+                                           'Gi': str(giro_month.get_children_in(day.day, 'G')),
+                                           'GiA': len(giro_month.get_children_in(day.day, 'G')),
+                                           'Go': str(giro_month.get_children_out(day.day, 'G')),
+                                           })
 
         context['contracts'] = Contract.objects.filter(from_date__lte=date(giro_month.year, giro_month.month, 1),
                                                        to_date__gt=date(giro_month.next_month_year,
