@@ -1,5 +1,6 @@
 from django import template
 from wagtail.core.models import Page
+
 from home.models import FooterLink, FooterImage
 
 register = template.Library()
@@ -13,6 +14,7 @@ def top_menu(context, parent, calling_page=None):
     # Read all pages from DB which are live, has the menue flag and a depth equal to 3,
     # means are all pages below the root/home page
     menuitems = Page.objects.filter(live=True, show_in_menus=True, depth=3)
+    # todo: use new base class translated pages
     if isinstance(parent, Page):
         menuitems = menuitems | parent.get_children().filter(live=True, show_in_menus=True)
     for menuitem in menuitems:
@@ -21,6 +23,9 @@ def top_menu(context, parent, calling_page=None):
         # if the variable passed as calling_page does not exist.
         menuitem.active = (calling_page.url_path.startswith(menuitem.url_path)
                            if calling_page else False)
+        if hasattr(menuitem, 'translated_title'):
+            menuitem.title = menuitem.translated_title
+
     return {
         'calling_page': calling_page,
         'menuitems': menuitems,
