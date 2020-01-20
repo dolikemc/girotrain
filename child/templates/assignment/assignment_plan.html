@@ -31,9 +31,9 @@
             {% for entry in object_list %}
                 <tr {% if entry.open  %}class="table-success"{% endif %}>
                     <td>{{ entry.date | date_display }}</td>
-                    <td>{{ entry.Pi }}</td>
-                    <td>{{ entry.Mi }}</td>
-                    <td>{{ entry.Gi }}</td>
+                    <td>{{ entry.PiA }}</td>
+                    <td>{{ entry.MiA }}</td>
+                    <td>{{ entry.GiA }}</td>
                     <td>{{ entry.Po }}, {{ entry.Mo }}, {{ entry.Go }}</td>
                 </tr>
             {% endfor %}
