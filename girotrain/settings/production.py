@@ -9,7 +9,7 @@ SECRET_KEY = '4@h0kyn$tum8_&rlrg*lyn!i@yy)f@utzwqly)ja+($kdsuz+u'
 # SECURE_CONTENT_TYPE_NOSNIFF = True
 
 # SECURITY WARNING: define the correct hosts in production!
-ALLOWED_HOSTS = ['www.buchetmann.org']
+ALLOWED_HOSTS = ['www.buchetmann.org','localhost']
 
 DATABASES = {
     'default': {
