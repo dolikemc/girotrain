@@ -1,8 +1,10 @@
 from datetime import datetime, timedelta
-from django.views.generic import CreateView, DetailView
+
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpResponse, HttpRequest, HttpResponseServerError, HttpResponseRedirect
-from django.shortcuts import render_to_response
+from django.shortcuts import render
+from django.views.generic import CreateView, DetailView
+
 from application.models import Application
 
 
@@ -68,8 +70,9 @@ class CreateApplication(CreateView):
             # default validity is 6 months
             form.instance.expiry_extension = datetime.now() + timedelta(days=180)
         super().form_valid(form)
-        return render_to_response(template_name='application/application_answer.html',
-                                  context={'form': form.instance, 'request': self.request})
+        return render(template_name='application/application_answer.html',
+                      context={'form': form.instance, 'request': self.request},
+                      request=self.request)
 
 
 class DetailViewApplication(LoginRequiredMixin, DetailView):
