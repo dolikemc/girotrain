@@ -1,6 +1,7 @@
 from datetime import datetime, timedelta
 
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 from django.http import HttpResponse, HttpRequest, HttpResponseServerError, HttpResponseRedirect
 from django.shortcuts import render
 from django.views.generic import CreateView, DetailView
@@ -22,6 +23,11 @@ def copy_application_to_member(request: HttpRequest, app_id: int) -> HttpRespons
     try:
         father = None
         mother = None
+        std_group = None
+        try:
+            std_group = Group.objects.get(name='Member')
+        except:  # todo: catch the right error
+            pass
         if application.first_name_father is not None and len(application.first_name_father) > 1:
             father = User.objects.create_user(
                 username=application.last_name_father.lower() + application.first_name_father.lower()[0:2],
@@ -30,7 +36,9 @@ def copy_application_to_member(request: HttpRequest, app_id: int) -> HttpRespons
                 first_name=application.first_name_father,
                 last_name=application.last_name_father,
             )
-
+            if std_group is not None:
+                father.groups.add(std_group)
+                father.save(())
         if application.first_name_mother is not None and len(application.first_name_mother) > 1:
             mother = User.objects.create_user(
                 username=application.last_name_mother.lower() + application.first_name_mother.lower()[0:2],
@@ -38,12 +46,16 @@ def copy_application_to_member(request: HttpRequest, app_id: int) -> HttpRespons
                 password=application.birth_date.strftime('%Y%m%d'),
                 first_name=application.first_name_mother,
                 last_name=application.last_name_mother)
+            if std_group is not None:
+                mother.groups.add(std_group)
+                mother.save(())
 
         child = Child.objects.create(first_name=application.first_name, last_name=application.last_name,
                                      birth_date=application.birth_date, street=application.street,
-                                     zip=application.zip, city=application.city, country=application.country,
-                                     contact_email=application.contact_email, care_time=application.care_time,
-                                     care_group='N', remark=application.remark, father=father, mother=mother)
+                                     gender=application.gender, zip=application.zip, city=application.city,
+                                     country=application.country, contact_email=application.contact_email,
+                                     care_time=application.care_time, care_group='N', remark=application.remark,
+                                     father=father, mother=mother)
         application.child_link = child
         application.save()
 
