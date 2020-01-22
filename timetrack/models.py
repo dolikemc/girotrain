@@ -52,6 +52,6 @@ class WorkWeek(models.Model):
     updated_on = models.DateTimeField(auto_now=True)
 
 
-class WorkWeekAdmin(Page):
+class WorkWeekAdminPage(Page):
     def serve(self, request, *args, **kwargs):
         return HttpResponseRedirect(reverse('list-time-tracking'))

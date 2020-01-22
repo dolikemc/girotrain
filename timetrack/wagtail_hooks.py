@@ -1,6 +1,6 @@
 from django.utils.translation import ugettext as _
 from django.contrib.admin.utils import reverse
-from timetrack.models import Contract
+from timetrack.models import Contract, WorkWeek
 from wagtail.contrib.modeladmin.views import IndexView
 from wagtail.contrib.modeladmin.options import (ModelAdmin, modeladmin_register)
 
@@ -32,4 +32,17 @@ class ContractAdmin(ModelAdmin):
     index_view_class = ContractListView
 
 
+class WorkWeekAdmin(ModelAdmin):
+    model = WorkWeek
+    menu_label = 'Work Week Admin'
+    menu_icon = 'time'
+    menu_order = 700
+    add_to_settings_menu = True
+    exclude_from_explorer = False
+    list_display = ('user_link', 'week', 'booked')
+    list_filter = list_display
+    search_fields = list_display
+
+
 modeladmin_register(ContractAdmin)
+modeladmin_register(WorkWeekAdmin)
