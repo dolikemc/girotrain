@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% load static wagtailcore_tags wagtailimages_tags cookielaw_tags %}
+{% block body_class %}template-accordionpage{% endblock %}
+{% block extra_css %}
+{% endblock extra_css %}
+{% block content %}
+    <div class="container">
+
+        <div class="col-lg-8 col-md-8 col-sm-8 mx-auto">
+            <div class="home-page">
+                <div class="row">
+                    <h2 class="home-title">
+                        {{ page.translated_title }}
+                    </h2>
+                    <div>
+                        {% for block in page.body %}
+                            {% if block.block_type == 'paragraph' %}
+                                <p>{{ block.value }}</p>
+                            {% else %}
+                                <section class="block-{{ block.block_type }}">
+                                    {% include_block block %}
+                                    <hr>
+                                </section>
+                            {% endif %}
+                        {% endfor %}
+                    </div>
+                </div>
+            </div> <!-- home-page -->
+        </div> <!-- col -->
+
+    </div> <!-- container -->
+    <div class="cookie">
+        {% cookielaw_banner %}
+    </div>
+{% endblock content %}
+{% block extra_js %}
+{% endblock extra_js %}

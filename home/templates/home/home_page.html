@@ -14,9 +14,6 @@
                     </h2>
                     <p class="home-body">
                         {{ page.body_top | richtext }}
-                        {% if page.link_top %}
-                            <a class='page-link' href={{ page.link_top }}>{{ page.link_text_top }}</a>
-                        {% endif %}
                     </p>
                 </div>
                 {% if  page.home_page_images.all %}
@@ -33,9 +30,6 @@
                 <div class="row">
                     <p class="home-body">
                         {{ page.body_bottom | richtext }}
-                        {% if page.link_bottom %}
-                            <a class='page-link' href={{ page.link_bottom }}>{{ page.link_text_bottom }}</a>
-                        {% endif %}
                     </p>
                 </div>
             </div> <!-- home-page -->
